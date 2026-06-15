@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+{% block title %}{{ item.title }}{% endblock %}
+{% block content %}
+
+<div class="item-detail">
+    <a class="back-link" href="{% url 'home' %}">← Назад</a>
+    <div class="item-detail-flex">
+        <!-- IMAGE -->
+        <div class="item-image">
+            {% if item.image %}
+                <img src="{{ item.image.url }}">
+            {% endif %}
+        </div>
+        <!-- INFO -->
+        <div class="item-info">
+
+            <h2>{{ item.title }}</h2>
+
+            <p class="muted">
+                Власник:
+                <a href="{% url 'user_profile' item.owner.id %}">
+                    {{ item.owner.username }}
+                </a>
+            </p>
+
+            <p><strong>Категорія:</strong> {{ item.category.name }}</p>
+
+            <p class="description">
+                {{ item.description }}
+            </p>
+
+            {% if request.user.is_authenticated and request.user != item.owner %}
+            <a href="{% url 'request_exchange' item.id %}" class="primary-btn">
+                Запросити обмін
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

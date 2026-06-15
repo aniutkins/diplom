@@ -1,0 +1,90 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Профіль{% endblock %}
+
+{% block content %}
+
+<style>
+    .profile-card-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        height: 100%;
+    }
+
+    .card-nav {
+        cursor: pointer;
+        transition: all 0.2s;
+        height: 100%;
+    }
+
+    .card-nav:hover {
+        background-color: #c73652;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(199, 54, 82, 0.3);
+    }
+
+    .card-nav:hover h3 {
+        color: white;
+    }
+</style>
+
+<div class="profile">
+
+    <div class="profile-card">
+
+        {% if request.user.userprofile.avatar %}
+            <img class="avatar" src="{{ request.user.userprofile.avatar.url }}">
+        {% else %}
+            <div class="avatar-placeholder">👤</div>
+        {% endif %}
+
+        <h2>{{ request.user.username }}</h2>
+        <p>{{ request.user.email }}</p>
+        <p>{{ profile.phone }}</p>
+        <p>{{ profile.location }}</p>
+
+        <a href="{% url 'edit_profile' %}">
+            <button>Редагувати профіль</button>
+        </a>
+
+    </div>
+
+    <div class="profile-sections">
+
+        <a class="profile-card-link" href="{% url 'my_items' %}">
+            <div class="card card-nav">
+                <h3>📦 Мої речі</h3>
+            </div>
+        </a>
+
+        <a class="profile-card-link" href="{% url 'my_requests' %}">
+            <div class="card card-nav">
+                <h3>🔄 Мої запити</h3>
+            </div>
+        </a>
+
+        <a class="profile-card-link" href="{% url 'requests_to_me' %}">
+            <div class="card card-nav">
+                <h3>📥 Запити до мене</h3>
+            </div>
+        </a>
+
+        <a class="profile-card-link" href="{% url 'my_chats' %}">
+            <div class="card card-nav">
+                <h3>💬 Чати</h3>
+            </div>
+        </a>
+        
+        <a class="profile-card-link" href="{% url 'add_item' %}">
+            <div class="card card-nav">
+                <h3>➕ Додати річ</h3>
+            </div>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

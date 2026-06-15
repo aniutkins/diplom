@@ -1,0 +1,91 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Мої обміни{% endblock %}
+
+{% block content %}
+
+<h2>🔄 Мої обміни</h2>
+
+<!-- 📤 SENT -->
+<div class="section">
+
+    <h3>📤 Я відправив</h3>
+
+    <div class="items">
+
+        {% for req in sent_requests %}
+
+        <div class="card">
+
+            <h4>{{ req.item.title }}</h4>
+
+            <p class="muted">
+                Власник: {{ req.item.owner.username }}
+            </p>
+
+            <p>
+                Статус:
+                <span class="badge">{{ req.status }}</span>
+            </p>
+
+        </div>
+
+        {% empty %}
+            <p>Немає запитів</p>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<hr>
+
+<!-- 📥 RECEIVED -->
+<div class="section">
+
+    <h3>📥 До мене</h3>
+
+    <div class="items">
+
+        {% for req in received_requests %}
+
+        <div class="card">
+
+            <h4>{{ req.item.title }}</h4>
+
+            <p class="muted">
+                Від: {{ req.requester.username }}
+            </p>
+
+            <p>
+                Статус:
+                <span class="badge">{{ req.status }}</span>
+            </p>
+
+            {% if req.status == 'pending' %}
+
+            <div class="actions">
+
+                <a class="btn-accept" href="{% url 'accept_exchange' req.id %}">
+                    ✅ Прийняти
+                </a>
+
+                <a class="btn-reject" href="{% url 'reject_exchange' req.id %}">
+                    ❌ Відхилити
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        {% empty %}
+            <p>Немає запитів</p>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

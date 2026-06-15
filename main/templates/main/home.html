@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Головна{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>Доступні речі</h1>
+    <p>Знайди щось для обміну</p>
+</div>
+
+<!-- 🔍 ФІЛЬТРИ -->
+<div class="filters">
+
+    <form method="GET" class="filters-form">
+
+        <input type="text" name="q" placeholder="🔍 Пошук товару..." value="{{ request.GET.q }}">
+
+        <select name="category">
+            <option value="">Всі категорії</option>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}">
+                    {{ cat.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="sort">
+            <option value="">Сортування</option>
+            <option value="new">Новіші</option>
+            <option value="old">Старіші</option>
+        </select>
+
+        <button type="submit">Застосувати</button>
+
+    </form>
+
+</div>
+
+<!--  ТОВАРИ  -->
+<div class="items">
+    {% for item in items %}
+        <div class="item">
+            <a href="{% url 'item_detail' item.id %}">
+
+                {% if item.image %}
+                    <img src="{{ item.image.url }}">
+                {% endif %}
+
+                <div class="item-content">
+                    <h3>{{ item.title }}</h3>
+                    <p class="muted">{{ item.category.name }}</p>
+                </div>
+
+            </a>
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

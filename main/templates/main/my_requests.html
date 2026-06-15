@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<h2>📦 Мої запити</h2>
+
+<a href="{% url 'profile' %}">← Назад</a>
+
+{% for req in requests %}
+
+<div class="card">
+
+    <h3>{{ req.item.title }}</h3>
+    <p>Статус: {{ req.status }}</p>
+    <p>Дата: {{ req.created_at }}</p>
+
+</div>
+
+{% empty %}
+    <p>У вас ще немає запитів</p>
+{% endfor %}
+
+{% endblock %}

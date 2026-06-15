@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div class="auth-box">
+
+    <h2>Реєстрація</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Зареєструватися</button>
+    </form>
+
+    <a href="{% url 'login' %}">Вже є акаунт?</a>
+
+</div>
+
+{% endblock %}

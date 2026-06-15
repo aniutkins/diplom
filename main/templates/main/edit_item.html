@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Редагувати річ{% endblock %}
+
+{% block content %}
+
+<div class="auth-box">
+
+    <h2>✏️ Редагувати річ</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="primary-btn">
+            Зберегти
+        </button>
+
+    </form>
+
+    <a class="back-link" href="{% url 'my_items' %}">
+        ← Назад
+    </a>
+
+</div>
+
+{% endblock %}

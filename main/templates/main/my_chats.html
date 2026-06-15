@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Мої чати{% endblock %}
+
+{% block content %}
+
+<h2>💬 Мої чати</h2>
+
+
+<div class="chat-list">
+
+    {% for user in users %}
+
+    <a href="{% url 'chat' user.id %}" class="chat-item">
+
+        <div class="chat-avatar">
+            👤
+        </div>
+
+        <div class="chat-info">
+
+            <div class="chat-name">
+                {{ user.username }}
+            </div>
+
+            <div class="chat-subtext">
+                Натисни, щоб відкрити чат
+            </div>
+
+        </div>
+
+    </a>
+
+    {% empty %}
+        <p>Немає чатів</p>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Запити на мої речі{% endblock %}
+
+{% block content %}
+
+<h2>📥 Запити на мої речі</h2>
+
+<a class="back-link" href="{% url 'profile' %}">← Назад</a>
+
+<div class="items">
+
+    {% for req in requests %}
+
+    <div class="card">
+
+        <h3>{{ req.item.title }}</h3>
+
+        <p class="muted">
+            Користувач: {{ req.requester.username }}
+        </p>
+
+        <p>
+            Статус:
+            <span class="badge">{{ req.status }}</span>
+        </p>
+
+        {% if req.status == "pending" %}
+
+        <div class="actions">
+
+            <a class="btn-accept" href="{% url 'accept_request' req.id %}">
+                ✅ Прийняти
+            </a>
+
+            <a class="btn-reject" href="{% url 'decline_request' req.id %}">
+                ❌ Відхилити
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% empty %}
+        <p>Немає запитів.</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

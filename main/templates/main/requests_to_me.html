@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<a href="{% url 'profile' %}">← Назад</a>
+
+<h2>📥 Запити до мене</h2>
+
+{% for req in requests %}
+
+<div class="card">
+
+    <h3>{{ req.item.title }}</h3>
+
+    <p>Від: {{ req.requester.username }}</p>
+    <p>Статус: {{ req.status }}</p>
+
+    {% if req.status == 'pending' %}
+        <a href="{% url 'update_request_status' req.id 'accept' %}">✅ Прийняти</a>
+        <a href="{% url 'update_request_status' req.id 'reject' %}">❌ Відхилити</a>
+    {% endif %}
+
+</div>
+
+{% empty %}
+    <p>Немає запитів</p>
+{% endfor %}
+
+{% endblock %}

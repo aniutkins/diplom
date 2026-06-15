@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Чат{% endblock %}
+
+{% block content %}
+
+<div class="chat-page">
+
+    <a class="back-link" href="{% url 'user_profile' other_user.id %}">
+        ← Назад
+    </a>
+
+    <h2>💬 {{ other_user.username }}</h2>
+
+    <div class="chat-box">
+
+        {% for msg in chat_messages %}
+
+            {% if msg.sender == request.user %}
+                <div class="message me">
+                    <div class="msg-text">{{ msg.text }}</div>
+                </div>
+            {% else %}
+                <div class="message them">
+                    <div class="msg-text">{{ msg.text }}</div>
+                </div>
+            {% endif %}
+
+        {% empty %}
+            <p class="muted">Немає повідомлень</p>
+        {% endfor %}
+
+    </div>
+
+    <form method="post" class="chat-input">
+        {% csrf_token %}
+        <input type="text" name="text" placeholder="Напишіть повідомлення...">
+        <button type="submit">Відправити</button>
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Мої речі{% endblock %}
+
+{% block content %}
+
+<h2>📦 Мої речі</h2>
+
+<a href="{% url 'profile' %}">← Назад до профілю</a>
+
+
+<div class="items">
+
+    {% for item in items %}
+
+        <div class="item">
+
+            {% if item.image %}
+                <img src="{{ item.image.url }}">
+            {% endif %}
+
+            <div class="item-content">
+
+                <h3>{{ item.title }}</h3>
+
+                <p>{{ item.description }}</p>
+                <p class="muted">Категорія: {{ item.category.name }}</p>
+
+                <div class="item-actions">
+
+                    <a href="{% url 'edit_item' item.id %}">✏️ Редагувати</a>
+
+                    <a href="{% url 'delete_item' item.id %}"
+                       onclick="return confirm('Видалити річ?')">
+                        🗑 Видалити
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% empty %}
+        <p>У вас ще немає речей.</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
